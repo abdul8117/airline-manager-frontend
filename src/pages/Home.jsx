@@ -21,12 +21,14 @@ function Home() {
                     </div>
                     <div className="column">
                         <div className="card">
-                            <h4 className="title">Finances</h4>
-                            <ul>
-                                <li>Revenue: *TODO*</li>
-                                <li>Costs: *TODO*</li>
-                                <li>Profit: *TODO*</li>
-                            </ul>
+                            <div className="card-content">
+                                <h4 className="title is-4">Finances</h4>
+                                <ul>
+                                    <li>Revenue: *TODO*</li>
+                                    <li>Costs: *TODO*</li>
+                                    <li>Profit: *TODO*</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>

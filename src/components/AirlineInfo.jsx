@@ -45,6 +45,7 @@ function AirlineInfo() {
             <h4 className="title is-4">Airline info</h4>
             <ul>
                 <li>Airline name: {info.airlineName}</li>
+                <li>Balance: ${info.balance}</li>
                 <li>Hub airport: {info.airport.name}</li>
                 <li>Number of routes: *TODO*</li>
                 <li>Fleet size: *TODO*</li>

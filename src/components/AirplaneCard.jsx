@@ -1,4 +1,34 @@
+import { API_URL } from "../config";
+import { useAuth } from "./auth/AuthProvider";
+
 function AirplaneCard({ airplane }) {
+    const { token } = useAuth();
+
+    function handleBuyButton(id) {
+        console.log(`Buying ${airplane.model}`);
+
+        // Send a POST request to the server to buy the airplane
+        fetch(`${API_URL}/api/aircraft-types/buy?aircraftTypeId=${id}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        })
+            .then((response) => {
+                if (response.ok) {
+                    console.log(
+                        `${airplane.manufacturer} ${airplane.model} purchased.`,
+                    );
+                } else {
+                    console.error("Response was not ok " + response);
+                }
+            })
+            .catch((error) => {
+                console.error("Failed to purchase the plane " + error);
+            });
+    }
+
     return (
         <div className="card">
             <div className="card-image">
@@ -22,7 +52,12 @@ function AirplaneCard({ airplane }) {
                 <button className="card-footer-item">-</button>
                 <p className="card-footer-item">1</p>
                 <button className="card-footer-item">+</button>
-                <button className="card-footer-item">Buy</button>
+                <button
+                    className="card-footer-item"
+                    onClick={() => handleBuyButton(airplane.aircraftTypeId)}
+                >
+                    Buy
+                </button>
             </div>
         </div>
     );
