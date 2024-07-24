@@ -1,12 +1,9 @@
 import { useState, useEffect } from "react";
 
 import { API_URL } from "../config";
-import { useAuth } from "./auth/AuthProvider";
 
 function AirlineInfo() {
     const [info, setInfo] = useState(null);
-
-    const { token } = useAuth();
 
     useEffect(() => {
         async function fetchPlayerData() {
@@ -34,7 +31,7 @@ function AirlineInfo() {
         }
 
         fetchPlayerData();
-    }, [token]);
+    }, [localStorage.getItem("token")]);
 
     if (!info) {
         return <p>Loading...</p>;
