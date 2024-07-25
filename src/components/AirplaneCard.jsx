@@ -2,6 +2,8 @@ import { API_URL } from "../config";
 import { useAuth } from "./auth/AuthProvider";
 
 function AirplaneCard({ airplane }) {
+    const { token } = useAuth();
+
     function handleBuyButton(id) {
         console.log(`Buying ${airplane.model}`);
 
@@ -10,7 +12,7 @@ function AirplaneCard({ airplane }) {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
+                Authorization: `Bearer ${token}`,
             },
         })
             .then((response) => {

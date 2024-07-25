@@ -8,7 +8,7 @@ import Navbar from "../components/Navbar.jsx";
 function Fleet() {
     const [fleet, setFleet] = useState([]);
 
-    const token = localStorage.getItem("token");
+    const { token } = useAuth();
 
     useEffect(() => {
         async function fetchPlayerFleet() {

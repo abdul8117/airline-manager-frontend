@@ -2,13 +2,13 @@ import { Outlet, Navigate } from "react-router-dom";
 import { useAuth } from "../components/auth/AuthProvider";
 
 function ProtectedRoute() {
-    const token = localStorage.getItem("token");
+  const { token } = useAuth();
 
-    if (!token) {
-        return <Navigate to="/" replace={true} />;
-    }
+  if (!token) {
+    return <Navigate to="/" replace={true} />;
+  }
 
-    return <Outlet />;
+  return <Outlet />;
 }
 
 export default ProtectedRoute;
