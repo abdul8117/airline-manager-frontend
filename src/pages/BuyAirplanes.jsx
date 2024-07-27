@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { API_URL } from "../config";
+import { API_URL, noLeftPadding } from "../config";
 
 import Navbar from "../components/Navbar";
 import AirplaneCards from "../components/AirplaneCards.jsx";
@@ -31,15 +31,15 @@ function BuyAirplanes() {
             <Navbar />
 
             <div className="container">
-                <h1 className="title">Buy airplanes</h1>
-                <div className="fixed-grid has-3-cols">
-                    <div className="grid">
-                        {airplanes.map((airplane) => (
-                            <div className="cell">
-                                <AirplaneCard airplane={airplane} />
-                            </div>
-                        ))}
-                    </div>
+                <div className="section" style={noLeftPadding}>
+                    <h1 className="title">Buy airplanes</h1>
+                </div>
+                <div className="grid is-col-min-10">
+                    {airplanes.map((airplane) => (
+                        <div className="cell">
+                            <AirplaneCard airplane={airplane} />
+                        </div>
+                    ))}
                 </div>
             </div>
         </>

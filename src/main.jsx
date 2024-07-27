@@ -5,6 +5,7 @@ import SignInPage from "./pages/SignInPage.jsx";
 import Home from "./pages/Home.jsx";
 import BuyAirplanes from "./pages/BuyAirplanes.jsx";
 import Fleet from "./pages/Fleet.jsx";
+import Routes from "./pages/Routes.jsx";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ProtectedRoute from "./utils/ProtectedRoute.jsx";
@@ -50,6 +51,16 @@ const router = createBrowserRouter([
             {
                 path: "",
                 element: <Fleet />,
+            },
+        ],
+    },
+    {
+        path: "/routes",
+        element: <ProtectedRoute />,
+        children: [
+            {
+                path: "",
+                element: <Routes />,
             },
         ],
     },
