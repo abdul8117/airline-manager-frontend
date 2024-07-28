@@ -4,27 +4,16 @@ import Navbar from "../components/Navbar";
 import NewRouteModal from "../components/NewRouteModal";
 import RouteCard from "../components/RouteCard";
 
+import { fetchRoutes } from "../utils/FetchRoutes";
 import { noLeftPadding } from "../config";
-import { API_URL } from "../config";
 
 function Routes() {
     const [routes, setRoutes] = useState([]);
 
     useEffect(() => {
-        async function fetchRoutes() {
-            try {
-                const response = await fetch(`${API_URL}/api/routes`);
-                if (response.ok) {
-                    const data = await response.json();
-                    setRoutes(data);
-                }
-                throw new Error("Network response was not ok.");
-            } catch (error) {
-                throw new Error("Error when fetching routes: " + error);
-            }
-        }
-
-        fetchRoutes();
+        fetchRoutes()
+            .then((data) => setRoutes(data))
+            .catch((error) => console.error(error));
     }, []);
 
     return (
@@ -47,12 +36,14 @@ function Routes() {
                     </div>
                 </div>
 
-                <div className="grid is-min-30">
-                    {routes.map((route) => (
-                        <div className="grid-item">
-                            <RouteCard route={route} />
-                        </div>
-                    ))}
+                <div className="fixed-grid has-2">
+                    <div className="grid">
+                        {routes.map((route) => (
+                            <div className="grid-item">
+                                <RouteCard route={route} />
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
         </>
