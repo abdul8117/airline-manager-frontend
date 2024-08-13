@@ -22,9 +22,6 @@ function Navbar() {
                         <Link to="/routes" className="navbar-item">
                             Routes
                         </Link>
-                        <Link to="/flights" className="navbar-item">
-                            View and schedule flights
-                        </Link>
                         <Link to="/buy-airplanes" className="navbar-item">
                             Buy airplanes
                         </Link>

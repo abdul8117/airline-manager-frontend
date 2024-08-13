@@ -1,4 +1,6 @@
-function RouteCard({ route }) {
+import ScheduleFlightModal from "./ScheduleFlightModal";
+
+function RouteCard({ route, onOpenModal }) {
     const hours = Math.floor(route.totalFlightTime / 60);
     const minutes = route.totalFlightTime % 60;
 
@@ -20,6 +22,15 @@ function RouteCard({ route }) {
                 <p>
                     Flight time: {hours} hours and {minutes} minutes
                 </p>
+            </div>
+
+            <div className="card-footer">
+                <div
+                    className="card-footer-item"
+                    onClick={() => onOpenModal(route)}
+                >
+                    <a>Schedule a flight on this route</a>
+                </div>
             </div>
         </div>
     );

@@ -6,15 +6,25 @@ import RouteCard from "../components/RouteCard";
 
 import { fetchRoutes } from "../utils/FetchRoutes";
 import { noLeftPadding } from "../config";
+import ScheduleFlightModal from "../components/ScheduleFlightModal";
 
 function Routes() {
     const [routes, setRoutes] = useState([]);
+    const [selectedRoute, setSelectedRoute] = useState(null);
 
     useEffect(() => {
         fetchRoutes()
             .then((data) => setRoutes(data))
             .catch((error) => console.error(error));
     }, []);
+
+    function handleOpenModal(route) {
+        setSelectedRoute(route);
+    }
+
+    function handleCloseModal() {
+        setSelectedRoute(null);
+    }
 
     return (
         <>
@@ -39,12 +49,22 @@ function Routes() {
                 <div className="fixed-grid has-2">
                     <div className="grid">
                         {routes.map((route) => (
-                            <div className="grid-item">
-                                <RouteCard route={route} />
+                            <div className="grid-item" key={route.routeId}>
+                                <RouteCard
+                                    route={route}
+                                    onOpenModal={handleOpenModal}
+                                />
                             </div>
                         ))}
                     </div>
                 </div>
+
+                {selectedRoute && (
+                    <ScheduleFlightModal
+                        route={selectedRoute}
+                        onCloseModal={handleCloseModal}
+                    />
+                )}
             </div>
         </>
     );

@@ -1,39 +1,33 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../components/auth/AuthProvider";
-import { API_URL, noLeftPadding } from "../config";
+import { noLeftPadding } from "../config";
+import { fetchPlayerFleet } from "../utils/FetchPlayerFleet";
 
 import FleetCard from "../components/FleetCard.jsx";
 import Navbar from "../components/Navbar.jsx";
 
 function Fleet() {
     const [fleet, setFleet] = useState([]);
-
     const { token } = useAuth();
 
     useEffect(() => {
-        async function fetchPlayerFleet() {
-            try {
-                const response = await fetch(`${API_URL}/api/fleet`, {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
+        fetchPlayerFleet(token).then((data) => {
+            const groupedFleet = data.reduce((acc, airplane) => {
+                const model = airplane.aircraftType.model;
 
-                if (response.ok) {
-                    console.log("GET fleet response is ok");
-                    const data = await response.json();
-                    setFleet(data);
+                if (!acc[model]) {
+                    acc[model] = { ...airplane, quantity: 1 };
                 } else {
-                    console.error("GET fleet response was not okay", response);
+                    acc[model].quantity += 1;
                 }
-            } catch (error) {
-                console.error("Failed to fetch fleet", error);
-            }
-        }
 
-        fetchPlayerFleet();
+                return acc;
+            }, {});
+
+            console.log(groupedFleet);
+
+            setFleet(Object.values(groupedFleet));
+        });
     }, [token]);
 
     return (

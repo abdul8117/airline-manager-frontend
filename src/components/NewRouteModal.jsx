@@ -120,7 +120,7 @@ function NewRouteModal() {
                         <p className="modal-card-title title is-4">New route</p>
                     </div>
 
-                    <section className="modal-card-body">
+                    <div className="modal-card-body">
                         <div className="field">
                             <label className="label">Destination country</label>
                             <div className="select">
@@ -182,7 +182,7 @@ function NewRouteModal() {
                             </label>
                             <p>${weeklyGateCost}</p>
                         </div>
-                    </section>
+                    </div>
 
                     <div className="modal-card-foot">
                         <div className="buttons">
