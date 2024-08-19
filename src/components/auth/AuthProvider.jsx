@@ -3,14 +3,15 @@ import { createContext, useContext, useState } from "react";
 const AuthContext = createContext();
 
 function AuthProvider({ children }) {
-    const [token, setToken] = useState();
+    const [token, setToken] = useState(localStorage.getItem("token"));
 
     function login(token) {
-        console.log("SETTING JWT TOKEN TO STATE: ", token);
+        localStorage.setItem("token", token);
         setToken(token);
     }
 
     function logout() {
+        localStorage.removeItem("token");
         setToken(null);
     }
 
@@ -22,5 +23,4 @@ function AuthProvider({ children }) {
 }
 
 export default AuthProvider;
-
 export const useAuth = () => useContext(AuthContext);
