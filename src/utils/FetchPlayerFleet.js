@@ -1,5 +1,4 @@
 import { API_URL } from "../config.js";
-import { useAuth } from "../components/auth/AuthProvider.jsx";
 
 async function fetchPlayerFleet(token) {
     try {

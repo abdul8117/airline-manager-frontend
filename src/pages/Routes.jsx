@@ -7,16 +7,28 @@ import RouteCard from "../components/RouteCard";
 import { fetchRoutes } from "../utils/FetchRoutes";
 import { noLeftPadding } from "../config";
 import ScheduleFlightModal from "../components/ScheduleFlightModal";
+import { fetchFlightSchedules } from "../utils/FetchFlightSchedules";
+import { useAuth } from "../components/auth/AuthProvider";
 
 function Routes() {
     const [routes, setRoutes] = useState([]);
     const [selectedRoute, setSelectedRoute] = useState(null);
 
+    const [schedules, setSchedules] = useState([]);
+
+    const { token } = useAuth();
+
     useEffect(() => {
+        // fetch the routes that the player operates
         fetchRoutes()
             .then((data) => setRoutes(data))
             .catch((error) => console.error(error));
-    }, []);
+
+        // fetch the schedules of every route
+        fetchFlightSchedules(token)
+            .then((data) => setSchedules(data))
+            .catch((error) => console.error(error));
+    }, [token]);
 
     function handleOpenModal(route) {
         setSelectedRoute(route);
@@ -24,6 +36,12 @@ function Routes() {
 
     function handleCloseModal() {
         setSelectedRoute(null);
+    }
+
+    function getScheduleOfRoute(routeId) {
+        return schedules.filter(
+            (schedule) => schedule.route.routeId == routeId,
+        )[0];
     }
 
     return (
@@ -52,6 +70,7 @@ function Routes() {
                             <div className="grid-item" key={route.routeId}>
                                 <RouteCard
                                     route={route}
+                                    schedule={getScheduleOfRoute(route.routeId)}
                                     onOpenModal={handleOpenModal}
                                 />
                             </div>

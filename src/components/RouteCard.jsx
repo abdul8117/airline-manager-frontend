@@ -1,6 +1,7 @@
+import { noTopPadding } from "../config";
 import ScheduleFlightModal from "./ScheduleFlightModal";
 
-function RouteCard({ route, onOpenModal }) {
+function RouteCard({ route, schedule, onOpenModal }) {
     const hours = Math.floor(route.totalFlightTime / 60);
     const minutes = route.totalFlightTime % 60;
 
@@ -22,6 +23,27 @@ function RouteCard({ route, onOpenModal }) {
                 <p>
                     Flight time: {hours} hours and {minutes} minutes
                 </p>
+            </div>
+
+            <div className="card-content">
+                {schedule && (
+                    <>
+                        <p className="title is-6" style={noTopPadding}>
+                            Scheduled flights
+                        </p>
+                        <p>
+                            {schedule.weeklyFrequency +
+                                " flights per week with "}
+                        </p>
+                        {schedule.aircraftFleet.map((aircraft) => (
+                            <li key={aircraft.aircraftFleetId}>
+                                {aircraft.aircraftType.model +
+                                    " with ID " +
+                                    aircraft.aircraftFleetId}
+                            </li>
+                        ))}
+                    </>
+                )}
             </div>
 
             <div className="card-footer">
